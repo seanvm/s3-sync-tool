@@ -18,7 +18,6 @@ class BucketSelector extends Component {
   }
   
   handleBucketChange = (event) => {
-    console.log(event.target.value)
     this.props.onSelectBucket(event.target.value);
   } 
   
