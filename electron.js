@@ -1,14 +1,11 @@
 const electron = require('electron');  
 const app = electron.app;  
 const BrowserWindow = electron.BrowserWindow;
-const startUrl = process.env.ELECTRON_START_URL || url.format({
-    pathname: path.join(__dirname, '/../build/index.html'),
-    protocol: 'file:',
-    slashes: true
-});
+const path = require('path');
+const url = require('url');
 
 // Keep reference of main window because of GC
-var mainWindow = null;
+let mainWindow;
 
 // Quit when all windows are closed
 app.on('window-all-closed', function() {  
@@ -27,7 +24,16 @@ app.on('ready', function() {
         height: 600,
         toolbar: false
     });
-
+    
+    // For debugging
+    mainWindow.webContents.openDevTools();
+    
+    const startUrl = process.env.ELECTRON_START_URL || url.format({
+      pathname: path.join(__dirname, '/../build/index.html'),
+      protocol: 'file:',
+      slashes: true
+    });
+    
     // Target HTML file which will be opened in window
     mainWindow.loadURL(startUrl);
 
