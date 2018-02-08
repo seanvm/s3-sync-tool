@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
+const fixPath = window.require('fix-path');
 
 class BucketSelector extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class BucketSelector extends Component {
   } 
   
   getBuckets() {
+    fixPath();
     return execAsync("aws s3 ls").then(results => {
       return this.parseBuckets(results.stdout);
     });
@@ -50,7 +52,7 @@ class BucketSelector extends Component {
         <FormGroup>
           <Label for="exampleSelect">Select A Bucket</Label>
           <Input type="select" name="select" id="exampleSelect" onChange={this.handleBucketChange}>
-            <option value="" disabled selected>{this.state.loading ? 'Loading' : 'Select an S3 bucket'}</option>
+            <option value="" disabled selected>{this.state.loading ? 'Loading...' : 'Select an S3 bucket'}</option>
             {bucketOptions}
           </Input>
         </FormGroup>

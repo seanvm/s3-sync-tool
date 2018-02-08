@@ -26,7 +26,7 @@ app.on('ready', function() {
     });
     
     // For debugging
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
     
     const startUrl = process.env.ELECTRON_START_URL || url.format({
       pathname: path.join(__dirname, '/../build/index.html'),

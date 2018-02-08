@@ -6,6 +6,7 @@ import './App.css';
 
 const remote = window.require('electron').remote;
 const execAsync = window.require('async-child-process').execAsync;
+const fixPath = window.require('fix-path');
 
 class App extends Component {
   constructor(props) {
@@ -33,8 +34,10 @@ class App extends Component {
   }
   
   downloadBucket() {
+    fixPath();
     return execAsync(`aws s3 sync s3://${this.state.selectedBucket} ${this.state.downloadDirectory}`).then(results => {
-      console.log(results);  
+      console.log(results); 
+      // TODO: Killing the app should kill this process
       // return results.stdout;
     });
   }
