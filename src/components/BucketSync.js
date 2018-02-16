@@ -6,7 +6,7 @@ import { animateScroll } from 'react-scroll';
 const fixPath = window.require('fix-path');
 const spawn = window.require('child_process').spawn;
 
-class BucketSelector extends Component {
+class BucketSync extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +30,7 @@ class BucketSelector extends Component {
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
     // TODO: https://github.com/atom/node-keytar - look into this for key storage
     fixPath();
+    
     var startMessage = `Starting Download from ${this.props.selectedBucket}`;
     this.updateConsoleOutput(startMessage);
     
@@ -92,4 +93,4 @@ class BucketSelector extends Component {
   }
 }
 
-export default BucketSelector;
+export default BucketSync;
