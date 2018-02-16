@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import BucketSelector from './components/BucketSelector';
+import BucketSync from './components/BucketSync';
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 import logo from './logo.svg';
 import './App.css';
 
 const remote = window.require('electron').remote;
-const execAsync = window.require('async-child-process').execAsync;
 const fixPath = window.require('fix-path');
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
       downloadDirectory: ''
     };
   }
-  
+
   handleBucket = (bucket) => {
     this.setState({selectedBucket: bucket})
   }
@@ -33,29 +33,26 @@ class App extends Component {
     console.log(this.state.downloadDirectory);
   }
   
-  downloadBucket() {
-    fixPath();
-    return execAsync(`aws s3 sync s3://${this.state.selectedBucket} ${this.state.downloadDirectory}`).then(results => {
-      console.log(results); 
-      // TODO: Killing the app should kill this process
-      // return results.stdout;
-    });
-  }
-  
-  render() {
+  render() { 
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <BucketSelector onSelectBucket={this.handleBucket} />
-        <div>
-          <Button onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
-          <Button onClick={() => this.downloadBucket()} disabled={!this.state.selectedBucket}>Download Bucket</Button>
-        </div>
-        
-        <div>
+        <div className="container-fluid">
+          <div className="row bottom-buffer">
+            <div className="col-md-4 text-left">
+              <Button onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
+            </div>
+            
+            <div className="col-md-4 text-left"> {
+              this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
+            </div>
+          </div>
           
+          {/* Download Button + Console output */}
+          <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} />
         </div>
       </div>
     );

@@ -26,3 +26,27 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.bottom-buffer { 
+  margin-bottom:20px; 
+}
+
+.consoleOutput {
+  height: 300px;
+  overflow: auto;
+  text-align: left;
+  background: rgb(0, 0, 0);
+  color: white;
+  font-family: monospace;
+}
+
+ul {
+  list-style: none;
+  padding: 0px;
+}
+
+ul li:before
+{
+  content: '\21e2';
+  margin: 0 1em;    /* any design */
+}
