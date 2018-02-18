@@ -25,17 +25,23 @@ class BucketSync extends Component {
     return (this.props.selectedBucket.length && this.props.downloadDirectory.length) > 0;
   }
   
-  downloadBucket() {
+  syncBucket(syncType) {
     // TODO: Killing the app should kill this process
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
-    // TODO: https://github.com/atom/node-keytar - look into this for key storage
     fixPath();
     
-    var startMessage = `Starting Download from ${this.props.selectedBucket}`;
+    var startMessage = `Starting ${syncType} - ${this.props.selectedBucket}`;
     this.updateConsoleOutput(startMessage);
     
-    var sync = spawn('aws', ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`]);
     var _this = this;
+    var syncArgs = [];
+    if(syncType === 'download'){
+      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`]
+    } else if(syncType === 'upload') {
+      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket}`]      
+    }
+    
+    var sync = spawn('aws', syncArgs);
     
     sync.stdout.on('data', function(data) {
       _this.updateConsoleOutput(data);
@@ -81,7 +87,7 @@ class BucketSync extends Component {
       <div>
         <div className="row bottom-buffer">
           <div className="col-md-4 text-left">
-            <Button onClick={() => this.downloadBucket()} disabled={!this.showDownloadButton()}>Download Bucket</Button>
+            <Button onClick={() => this.syncBucket('download')} disabled={!this.showDownloadButton()}>Download Bucket</Button>
           </div>
         </div>
         
