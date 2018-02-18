@@ -1,5 +1,6 @@
 {
   "name": "electron-react-s3-tool",
+  "author": "Sean van Mulligen",
   "version": "0.1.0",
   "private": true,
   "main": "public/electron.js",
@@ -108,7 +109,7 @@
     "extends": "react-app"
   },
   "build": {
-    "appId": "yourappid",
+    "appId": "com.seanvm.s3tool",
     "files": [
       "build/**/*",
       "node_modules/**/*"
