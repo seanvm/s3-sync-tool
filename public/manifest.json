@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "S3 Sync Tool",
+  "name": "S3 Sync Tool",
   "icons": [
     {
       "src": "favicon.ico",

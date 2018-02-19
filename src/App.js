@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import BucketSelector from './components/BucketSelector';
 import BucketSync from './components/BucketSync';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
-import logo from './logo.svg';
+import { Button } from 'reactstrap';
 import './App.css';
 
 const remote = window.require('electron').remote;
-const fixPath = window.require('fix-path');
 
 class App extends Component {
   constructor(props) {
@@ -25,8 +23,8 @@ class App extends Component {
     var _this = this;
     remote.dialog.showOpenDialog({ 
       properties: [ 'openDirectory' ] }, function (directory) {
-        if(directory !== undefined) {
-          _this.setState({downloadDirectory: directory.toString()})
+        if(typeof directory !== 'undefined') {
+          _this.setState({downloadDirectory: directory.toString()});
         }
       }
     );
@@ -36,9 +34,6 @@ class App extends Component {
   render() { 
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
         <BucketSelector onSelectBucket={this.handleBucket} />
         <div className="container-fluid">
           <div className="row bottom-buffer">
