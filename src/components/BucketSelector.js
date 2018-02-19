@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { FormGroup, Label, Input } from 'reactstrap';
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
@@ -30,11 +30,11 @@ class BucketSelector extends Component {
   }
   
   parseBuckets(bucketString) {
-    console.log(bucketString)
+    console.log(bucketString);
     var stringArray = bucketString.split(/(\s+)/);
     var buckets = stringArray.filter(function(element){
       element = element.replace(":", "");
-      return !(Date.parse(element) || (element.trim().length == 0) || (element == "\n") || (parseInt(element)));
+      return !(Date.parse(element) || (element.trim().length === 0) || (element === "\n") || (parseInt(element, 10)));
     });
     var loading = false;
     this.setState({ buckets, loading });

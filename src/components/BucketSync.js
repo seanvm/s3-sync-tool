@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import { Button } from 'reactstrap';
 import { animateScroll } from 'react-scroll';
 // import { PropagateLoader } from 'react-spinners';
 
@@ -36,9 +36,9 @@ class BucketSync extends Component {
     var _this = this;
     var syncArgs = [];
     if(syncType === 'download'){
-      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`]
+      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`];
     } else if(syncType === 'upload') {
-      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket}`]      
+      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket}`];
     }
     
     var sync = spawn('aws', syncArgs);
@@ -63,7 +63,7 @@ class BucketSync extends Component {
   parseCode(code) {
     var parsedCode = 'Failure';
     
-    if(code == '0') {
+    if(code === 0) {
       parsedCode = 'Bucket Up To Date';
     }
     
@@ -79,7 +79,7 @@ class BucketSync extends Component {
   render() {
     var consoleOutput = this.state.consoleOutput.map(function(item) {
       return (
-        <li>{item}</li>
+        <li key={item}>{item}</li>
       );
     });
     
