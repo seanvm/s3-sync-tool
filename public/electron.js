@@ -22,7 +22,9 @@ app.on('ready', function() {
         name: "S3 Sync Tool",
         width: 1000,
         height: 680,
-        toolbar: false
+        toolbar: false,
+        minHeight: 300,
+        minWidth: 560
     });
     
     // For debugging
