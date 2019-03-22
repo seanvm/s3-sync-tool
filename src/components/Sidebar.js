@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHome, faCloudDownloadAlt, faHistory, faCogs } from '@fortawesome/free-solid-svg-icons'
+import { faCloudDownloadAlt, faHistory, faCogs } from '@fortawesome/free-solid-svg-icons'
 
 export default class NavigationBar extends React.Component {
   constructor(props) {

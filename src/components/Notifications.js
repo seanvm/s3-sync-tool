@@ -27,7 +27,7 @@ class Notifications extends Component {
   
   render() { 
     return (
-      <div className="App">
+      <div>
         <Alert color="info" isOpen={this.state.alertVisible} >
           {this.state.alertMessage}
         </Alert>
