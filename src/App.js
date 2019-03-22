@@ -3,6 +3,7 @@ import BucketSelector from './components/BucketSelector';
 import BucketSync from './components/BucketSync';
 import { Button } from 'reactstrap';
 import './App.css';
+import BucketStats from './components/BucketStats';
 
 const remote = window.require('electron').remote;
 
@@ -41,9 +42,10 @@ class App extends Component {
               <Button onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
             </div>
             
-            <div className="col-md-4 text-left"> {
-              this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
+            <div className="col-md-4 text-left">
+              {this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
             </div>
+            <BucketStats selectedBucket={this.state.selectedBucket} />
           </div>
           
           {/* Download Button + Console output */}
