@@ -19,7 +19,21 @@ export default class NavigationBar extends React.Component {
   render() {
     return (
       <div className="sticky-top" id="">
-        Sidebar
+        <div className="row align-items-center navigation-item">
+          <div className="col">
+            Buckets
+          </div>
+        </div>
+        <div className="row align-items-center navigation-item">
+          <div className="col">
+            History
+          </div>
+        </div>
+        <div className="row align-items-center navigation-item">
+          <div className="col">
+            Settings
+          </div>
+        </div>
       </div>
     );
   }

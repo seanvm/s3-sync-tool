@@ -53,9 +53,20 @@ ul li:before
 
 .sidebar {
   background: hotpink;
+  border: 3px solid orange;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
 .main {
   background: aliceblue;
+}
+
+.navigation-item {
+  width: 100px;
+  height: 150px;
+  background: blueviolet
 }
