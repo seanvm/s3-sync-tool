@@ -21,7 +21,11 @@ class BucketSelector extends Component {
   }
   
   handleBucketChange = (event) => {
-    this.props.onSelectBucket(event.target.value);
+    var selectedBucket = this.state.buckets.find(function(bucket) {
+      return bucket.name === event.target.value;
+    });
+    
+    this.props.onSelectBucket(selectedBucket);
   } 
   
   getBuckets() {

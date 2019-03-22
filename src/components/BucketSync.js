@@ -22,7 +22,7 @@ class BucketSync extends Component {
   }
   
   showDownloadButton() {
-    return this.state.downloading || !this.props.selectedBucket.length || !this.props.downloadDirectory.length;
+    return this.state.downloading || !this.props.selectedBucket || !this.props.downloadDirectory.length;
   }
   
   syncBucket(syncType) {
@@ -31,15 +31,15 @@ class BucketSync extends Component {
     // TODO: Killing the app should kill this process
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
     fixPath();
-    var startMessage = `Starting ${syncType} - ${this.props.selectedBucket}`;
+    var startMessage = `Starting ${syncType} - ${this.props.selectedBucket.name}`;
     this.updateConsoleOutput(startMessage);
     
     var _this = this;
     var syncArgs = [];
     if(syncType === 'download'){
-      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`];
+      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket.name}`, `${this.props.downloadDirectory}`];
     } else if(syncType === 'upload') {
-      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket}`];
+      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket.name}`];
     }
     
     var sync = spawn('aws', syncArgs);
