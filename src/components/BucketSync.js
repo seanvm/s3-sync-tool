@@ -11,7 +11,7 @@ class BucketSync extends Component {
     super(props);
     this.state = {
       consoleOutput: [],
-      loading: true
+      downloading: false
     };
   }
   
@@ -22,14 +22,15 @@ class BucketSync extends Component {
   }
   
   showDownloadButton() {
-    return (this.props.selectedBucket.length && this.props.downloadDirectory.length) > 0;
+    return this.state.downloading || !this.props.selectedBucket.length || !this.props.downloadDirectory.length;
   }
   
   syncBucket(syncType) {
+    this.toggleDownloadState();
+    
     // TODO: Killing the app should kill this process
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
     fixPath();
-    
     var startMessage = `Starting ${syncType} - ${this.props.selectedBucket}`;
     this.updateConsoleOutput(startMessage);
     
@@ -56,6 +57,7 @@ class BucketSync extends Component {
     sync.on('exit', function (code) {
       var parsedCode = _this.parseCode(code);
       _this.updateConsoleOutput(parsedCode);
+      _this.toggleDownloadState();
       console.log('child process exited with code ' + code.toString());
     });
   }
@@ -64,10 +66,14 @@ class BucketSync extends Component {
     var parsedCode = 'Failure';
     
     if(code === 0) {
-      parsedCode = 'Bucket Up To Date';
+      parsedCode = 'Transfer complete.';
     }
     
     return parsedCode;
+  }
+  
+  toggleDownloadState(){
+    this.setState({downloading:!this.state.downloading});
   }
   
   updateConsoleOutput(output) {
@@ -87,7 +93,7 @@ class BucketSync extends Component {
       <div>
         <div className="row bottom-buffer">
           <div className="col-md-4 text-left">
-            <Button onClick={() => this.syncBucket('download')} disabled={!this.showDownloadButton()}>Download Bucket</Button>
+            <Button onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
           </div>
         </div>
         
