@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BucketSelector from './components/BucketSelector';
 import BucketSync from './components/BucketSync';
+import Notifications from './components/Notifications';
 import { Button } from 'reactstrap';
 import './App.css';
 import BucketStats from './components/BucketStats';
@@ -20,6 +21,10 @@ class App extends Component {
     this.setState({selectedBucket: bucket})
   }
   
+  handleAlertMessage = (message) => {
+    this.setState({alertMessage: message})
+  }
+
   selectDirectory() {
     var _this = this;
     remote.dialog.showOpenDialog({ 
@@ -35,6 +40,7 @@ class App extends Component {
   render() { 
     return (
       <div className="App">
+        <Notifications alertMessage={this.state.alertMessage} />
         <BucketSelector onSelectBucket={this.handleBucket} />
         <div className="container-fluid">
           <div className="row bottom-buffer">
@@ -49,7 +55,7 @@ class App extends Component {
           </div>
           
           {/* Download Button + Console output */}
-          <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} />
+          <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} handleAlertMessage={this.handleAlertMessage} />
         </div>
       </div>
     );

@@ -57,6 +57,7 @@ class BucketSync extends Component {
     sync.on('exit', function (code) {
       var parsedCode = _this.parseCode(code);
       _this.updateConsoleOutput(parsedCode);
+      _this.props.handleAlertMessage(`Bucket successfully downloaded to ${_this.props.downloadDirectory}`);
       _this.toggleDownloadState();
       console.log('child process exited with code ' + code.toString());
     });
