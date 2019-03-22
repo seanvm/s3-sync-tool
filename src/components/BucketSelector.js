@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input } from 'reactstrap';
+import Bucket from '../models/Bucket.js';
+
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
@@ -30,20 +32,19 @@ class BucketSelector extends Component {
   }
   
   parseBuckets(bucketString) {
-    console.log(bucketString);
-    var stringArray = bucketString.split(/(\s+)/);
-    var buckets = stringArray.filter(function(element){
-      element = element.replace(":", "");
-      return !(Date.parse(element) || (element.trim().length === 0) || (element === "\n") || (parseInt(element, 10)));
+    const buckets = [];
+    
+    bucketString.split(/\n/).forEach(bucket => {
+      buckets.push(new Bucket(bucket));
     });
-    var loading = false;
-    this.setState({ buckets, loading });
+  
+    this.setState({ buckets, loading: false });
   }
   
   render() {
     var bucketOptions = this.state.buckets.map(function(item) {
       return (
-        <option key={item} value={item}>{item}</option>
+        <option key={item.name + item.dateModified} value={item.name}>{item.name}</option>
       );
     });
     
