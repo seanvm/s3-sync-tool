@@ -6,6 +6,9 @@
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "~1.2.17",
+    "@fortawesome/free-solid-svg-icons": "~5.8.1",
+    "@fortawesome/react-fontawesome": "~0.1.4",
     "async-child-process": "^1.1.1",
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",

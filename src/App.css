@@ -52,12 +52,13 @@ ul li:before
 }
 
 .sidebar {
-  background: hotpink;
-  border: 3px solid orange;
+  color: white;
+  background-image: linear-gradient(to bottom right, #098ec1, #52c7ff);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  border-right: 4px solid rgb(165, 209, 230);
 }
 
 
@@ -68,5 +69,9 @@ ul li:before
 .navigation-item {
   width: 100px;
   height: 150px;
-  background: blueviolet
+  opacity: 0.5;
+}
+
+.selected {
+  opacity: 1;
 }
