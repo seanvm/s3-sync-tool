@@ -121,7 +121,7 @@ class BucketSync extends Component {
               <Button color="primary" onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
             ) : (
               <div className="w-100">
-                <Progress striped color="success" value={this.state.downloadProgress}>{this.state.downloadProgress}%</Progress>
+                <Progress animated striped color="success" value={this.state.downloadProgress}>{this.state.downloadProgress}%</Progress>
               </div>
             )}
           </div>

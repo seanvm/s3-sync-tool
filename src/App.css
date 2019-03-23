@@ -67,7 +67,7 @@ ul li:before
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-right: 4px solid rgb(165, 209, 230);
+  /* border-right: 4px solid rgb(165, 209, 230); */
 }
 
 
@@ -83,8 +83,15 @@ ul li:before
   opacity: 0.5;
 }
 
+.navigation-item:hover {
+  opacity: 1;
+  background-image: radial-gradient(circle at center , rgba(255, 255, 255, 0.36) 50%, transparent 50%);
+  transition: 0.4s;
+}
+
 .selected {
   opacity: 1;
+  background-image: radial-gradient(circle at center , rgba(255, 255, 255, 0.36) 50%, transparent 50%);
 }
 
 .buckets {

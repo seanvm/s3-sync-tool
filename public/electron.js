@@ -20,8 +20,8 @@ app.on('ready', function() {
     // http://electron.atom.io/docs/latest/api/browser-window/#new-browserwindow-options
     mainWindow = new BrowserWindow({
         name: "S3 Sync Tool",
-        width: 1000,
-        height: 680,
+        width: 950,
+        height: 450,
         toolbar: false,
         minHeight: 300,
         minWidth: 560
