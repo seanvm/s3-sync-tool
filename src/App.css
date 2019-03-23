@@ -1,3 +1,19 @@
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  color: #5a5858;
+}
+
+h2 {
+  font-size:22px;
+  color: #5a5858;
+}
+
 .App {
   text-align: center;
 }
@@ -5,13 +21,6 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
 }
 
 .App-title {
@@ -49,4 +58,98 @@ ul li:before
 {
   content: '\21e2';
   margin: 0 1em;    /* any design */
+}
+
+.sidebar {
+  color: white;
+  background-image: linear-gradient(to bottom right, #00B4FF, #07ACFD);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border-right: 4px solid rgb(165, 209, 230); */
+}
+
+
+.main {
+  background: #fcfcfc;
+  word-break: break-word;
+  overflow: auto;
+}
+
+.navigation-item {
+  width: 100px;
+  height: 150px;
+  opacity: 0.5;
+}
+
+.navigation-item:hover {
+  opacity: 1;
+  background-image: radial-gradient(circle at center , rgba(255, 255, 255, 0.36) 50%, transparent 50%);
+  transition: 0.4s;
+}
+
+.selected {
+  opacity: 1;
+  background-image: radial-gradient(circle at center , rgba(255, 255, 255, 0.36) 50%, transparent 50%);
+}
+
+.buckets {
+  padding: 40px;
+}
+
+.section {
+  border-radius:5px;
+  background-color: #eeeeee
+}
+
+/* Bootstrap overrides */
+.btn-primary {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+.btn.disabled, .btn:disabled {
+  opacity: 0.35;
+}
+
+.btn-primary:hover {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+  box-shadow: 0px 0px 6px 1px rgba(7, 172, 253, .4);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+/* Transitions */
+.alert-enter {
+  opacity: 0.01;
+}
+
+.alert-enter.alert-enter-active {
+  opacity: 1;
+  transition: opacity 800ms ease-in;
+}
+
+.alert-exit {
+  opacity: 1;
+}
+
+.alert-exit.alert-exit-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
+
+/* Icons */
+
+.fa-check-circle {
+  color: rgb(34, 153, 34);
 }

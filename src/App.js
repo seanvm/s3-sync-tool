@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import BucketSelector from './components/BucketSelector';
+import DownloadDirectorySelector from './components/DownloadDirectorySelector';
 import BucketSync from './components/BucketSync';
-import { Button } from 'reactstrap';
+import Notifications from './components/Notifications';
+import Sidebar from './components/Sidebar';
 import './App.css';
-
-const remote = window.require('electron').remote;
+import BucketStats from './components/BucketStats';
 
 class App extends Component {
   constructor(props) {
@@ -16,38 +17,35 @@ class App extends Component {
   }
 
   handleBucket = (bucket) => {
-    this.setState({selectedBucket: bucket})
+    this.setState({selectedBucket: bucket});
   }
   
-  selectDirectory() {
-    var _this = this;
-    remote.dialog.showOpenDialog({ 
-      properties: [ 'openDirectory' ] }, function (directory) {
-        if(typeof directory !== 'undefined') {
-          _this.setState({downloadDirectory: directory.toString()});
-        }
-      }
-    );
-    console.log(this.state.downloadDirectory);
+  handleAlertMessage = (message) => {
+    this.setState({alertMessage: message});
+  }
+
+  handleDirectorySelection = (directory) => {
+    this.setState({downloadDirectory: directory});
   }
   
   render() { 
     return (
-      <div className="App">
-        <BucketSelector onSelectBucket={this.handleBucket} />
-        <div className="container-fluid">
-          <div className="row bottom-buffer">
-            <div className="col-md-4 text-left">
-              <Button onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
-            </div>
-            
-            <div className="col-md-4 text-left"> {
-              this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
+      <div className="container-fluid h-100">
+        <div className="row h-100">
+          <div className="sidebar col-2 col-lg-1 col-xs-6 px-1 position-fixed h-100">
+            <Sidebar />
+          </div>
+
+          <div className="main col col-lg-11 col-sm-10 offset-2 offset-lg-1 offset-xs-6 h-100">
+            <div className="buckets">
+              <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
+              <h1>Buckets</h1>
+              <BucketSelector onSelectBucket={this.handleBucket} />
+              <BucketStats selectedBucket={this.state.selectedBucket} />
+              <DownloadDirectorySelector onSelectDirectory={this.handleDirectorySelection} />
+              <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} handleAlertMessage={this.handleAlertMessage} />
             </div>
           </div>
-          
-          {/* Download Button + Console output */}
-          <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} />
         </div>
       </div>
     );

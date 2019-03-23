@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Progress } from 'reactstrap';
 import { animateScroll } from 'react-scroll';
-// import { PropagateLoader } from 'react-spinners';
 
 const fixPath = window.require('fix-path');
 const spawn = window.require('child_process').spawn;
@@ -11,7 +10,8 @@ class BucketSync extends Component {
     super(props);
     this.state = {
       consoleOutput: [],
-      loading: true
+      downloading: false,
+      downloadProgress: 0
     };
   }
   
@@ -22,29 +22,33 @@ class BucketSync extends Component {
   }
   
   showDownloadButton() {
-    return (this.props.selectedBucket.length && this.props.downloadDirectory.length) > 0;
+    return this.state.downloading || !this.props.selectedBucket || !this.props.downloadDirectory.length;
   }
   
   syncBucket(syncType) {
+    this.toggleDownloadState();
+    this.setState({downloadProgress: 0});
+    
     // TODO: Killing the app should kill this process
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
     fixPath();
-    
-    var startMessage = `Starting ${syncType} - ${this.props.selectedBucket}`;
+    var startMessage = `Starting ${syncType} - ${this.props.selectedBucket.name}`;
     this.updateConsoleOutput(startMessage);
     
     var _this = this;
     var syncArgs = [];
     if(syncType === 'download'){
-      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket}`, `${this.props.downloadDirectory}`];
+      syncArgs = ['s3', 'sync', `s3://${this.props.selectedBucket.name}`, `${this.props.downloadDirectory}`];
     } else if(syncType === 'upload') {
-      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket}`];
+      syncArgs = ['s3', 'sync', `${this.props.downloadDirectory}`, `s3://${this.props.selectedBucket.name}`];
     }
     
     var sync = spawn('aws', syncArgs);
     
     sync.stdout.on('data', function(data) {
       _this.updateConsoleOutput(data);
+      _this.updateProgressBar(data);
+      
       console.log('stdout: ' + data.toString());
     });
     
@@ -56,6 +60,8 @@ class BucketSync extends Component {
     sync.on('exit', function (code) {
       var parsedCode = _this.parseCode(code);
       _this.updateConsoleOutput(parsedCode);
+      _this.props.handleAlertMessage(`Bucket successfully downloaded to ${_this.props.downloadDirectory}`);
+      _this.toggleDownloadState();
       console.log('child process exited with code ' + code.toString());
     });
   }
@@ -64,10 +70,14 @@ class BucketSync extends Component {
     var parsedCode = 'Failure';
     
     if(code === 0) {
-      parsedCode = 'Bucket Up To Date';
+      parsedCode = 'Transfer complete.';
     }
     
     return parsedCode;
+  }
+  
+  toggleDownloadState(){
+    this.setState({downloading:!this.state.downloading});
   }
   
   updateConsoleOutput(output) {
@@ -76,18 +86,44 @@ class BucketSync extends Component {
     this.setState({consoleOutput:newArray}, this.scrollToBottom());
   }
   
+  updateProgressBar(data) {
+    console.log(data.toString().split(/\s+/))
+    let ratio = 0;
+    if(data.toString().length && this.state.downloadProgress !== 100){
+      var dataArray = data.toString().split(/\s+/);
+      var index = dataArray.indexOf('Completed');
+      var currentAmount = dataArray[index + 1];
+      var totalAmount = dataArray[index + 2];
+      
+      totalAmount = totalAmount.split('/')[1].replace('~', '');
+      
+      var totalAmountUnits = dataArray[index + 3];
+      var currentAmountUnits = totalAmount.split('/')[0];
+      
+      ratio = Math.round((+currentAmount / +totalAmount) * 100);
+    }
+   
+    this.setState({downloadProgress: ratio});
+  }
+  
   render() {
     var consoleOutput = this.state.consoleOutput.map(function(item) {
       return (
-        <li key={item}>{item}</li>
+        <li key={item + Math.random()}>{item}</li>
       );
     });
     
     return (
       <div>
-        <div className="row bottom-buffer">
-          <div className="col-md-4 text-left">
-            <Button onClick={() => this.syncBucket('download')} disabled={!this.showDownloadButton()}>Download Bucket</Button>
+        <div className="section mb-3 p-3">
+          <div className="d-flex align-items-center">
+            {!this.state.downloading ? (
+              <Button color="primary" onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
+            ) : (
+              <div className="w-100">
+                <Progress animated striped color="success" value={this.state.downloadProgress}>{this.state.downloadProgress}%</Progress>
+              </div>
+            )}
           </div>
         </div>
         
