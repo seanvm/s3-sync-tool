@@ -94,7 +94,7 @@ class BucketSync extends Component {
       <div>
         <div className="row bottom-buffer">
           <div className="col-md-4 text-left">
-            <Button onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
+            <Button color="primary" onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
           </div>
         </div>
         
