@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { FormGroup, Label, Input } from 'reactstrap';
+import { FormGroup, Label, Input, Button } from 'reactstrap';
 import Bucket from '../models/Bucket.js';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
 const fixPath = window.require('fix-path');
+const remote = window.require('electron').remote;
 
 class BucketSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {
       buckets: [],
+      downloadDirectory: '',
       loading: true
     };
   }
@@ -45,6 +48,20 @@ class BucketSelector extends Component {
     this.setState({ buckets, loading: false });
   }
   
+  selectDirectory() {
+    var _this = this;
+    remote.dialog.showOpenDialog({ 
+      properties: [ 'openDirectory' ] }, function (directory) {
+        if(typeof directory !== 'undefined') {
+          _this.setState({downloadDirectory: directory.toString()})
+          _this.props.onSelectDirectory(directory.toString());
+        }
+      }
+    );
+    console.log(this.state.downloadDirectory);
+  }
+  
+
   render() {
     var bucketOptions = this.state.buckets.map(function(item) {
       return (
@@ -53,14 +70,28 @@ class BucketSelector extends Component {
     });
     
     return (
-      <div className="container-fluid">
-        <FormGroup>
-          <Label for="exampleSelect">Select A Bucket</Label>
-          <Input type="select" name="select" id="exampleSelect" onChange={this.handleBucketChange}>
-            <option value="" disabled selected>{this.state.loading ? 'Loading...' : 'Select an S3 bucket'}</option>
-            {bucketOptions}
-          </Input>
-        </FormGroup>
+      <div className="">
+        <div className="">
+          <FormGroup>
+            <Input type="select" name="select" id="bucket-select" onChange={this.handleBucketChange}>
+              <option value="" disabled selected>{this.state.loading ? 'Loading...' : 'Select an S3 bucket'}</option>
+              {bucketOptions}
+            </Input>
+          </FormGroup>
+        </div>
+        <div className="section mb-3 p-3">
+          {/* <h2>Download Directory</h2> */}
+          <div class="d-flex align-items-center">
+            
+            <Button color="primary" className="mr-5" onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
+            <span>
+              {this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
+              
+              {!!this.state.downloadDirectory.length && <span class="ml-1"><FontAwesomeIcon icon={faCheckCircle} size="1x" /></span>}
+            </span>
+          </div>
+        </div>
+        
       </div>
     );
   }
