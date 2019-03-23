@@ -11,7 +11,7 @@ class Notifications extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    if(nextProps.alertMessage !== this.props.alertMessage){
+    if(nextProps.alertMessage !== this.props.alertMessage && nextProps.alertMessage){
       this.setState({ alertMessage: nextProps.alertMessage }, () => { 
         this.showAlert();
       });
@@ -22,6 +22,7 @@ class Notifications extends Component {
     this.setState({alertVisible:true}, () => {
       window.setTimeout(()=>{
         this.setState({alertVisible:false})
+        this.props.handleAlertMessage(''); // Allow for re-render of same message
       },3000)
     });
   }

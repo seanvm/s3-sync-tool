@@ -37,7 +37,7 @@ class App extends Component {
 
           <div className="main col col-lg-11 col-sm-10 offset-2 offset-lg-1 offset-xs-6 h-100">
             <div className="buckets">
-              <Notifications alertMessage={this.state.alertMessage} />
+              <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
               <h1>Buckets</h1>
               <BucketSelector onSelectBucket={this.handleBucket} onSelectDirectory={this.handleDirectorySelection} />
               <div className="">

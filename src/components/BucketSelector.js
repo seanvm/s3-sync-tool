@@ -80,7 +80,6 @@ class BucketSelector extends Component {
           </FormGroup>
         </div>
         <div className="section mb-3 p-3">
-          {/* <h2>Download Directory</h2> */}
           <div className="d-flex align-items-center">
             
             <Button color="primary" className="mr-5" onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
