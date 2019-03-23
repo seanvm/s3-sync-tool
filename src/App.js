@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BucketSelector from './components/BucketSelector';
+import DownloadDirectorySelector from './components/DownloadDirectorySelector';
 import BucketSync from './components/BucketSync';
 import Notifications from './components/Notifications';
 import Sidebar from './components/Sidebar';
@@ -39,11 +40,10 @@ class App extends Component {
             <div className="buckets">
               <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
               <h1>Buckets</h1>
-              <BucketSelector onSelectBucket={this.handleBucket} onSelectDirectory={this.handleDirectorySelection} />
-              <div className="">
-                <BucketStats selectedBucket={this.state.selectedBucket} />
-                <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} handleAlertMessage={this.handleAlertMessage} />
-              </div>
+              <BucketSelector onSelectBucket={this.handleBucket} />
+              <DownloadDirectorySelector onSelectDirectory={this.handleDirectorySelection} />
+              <BucketStats selectedBucket={this.state.selectedBucket} />
+              <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} handleAlertMessage={this.handleAlertMessage} />
             </div>
           </div>
         </div>

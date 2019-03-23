@@ -71,26 +71,12 @@ class BucketSelector extends Component {
     
     return (
       <div className="">
-        <div className="">
-          <FormGroup>
-            <Input type="select" name="select" id="bucket-select" onChange={this.handleBucketChange}>
-              <option value="" disabled selected>{this.state.loading ? 'Loading...' : 'Select an S3 bucket'}</option>
-              {bucketOptions}
-            </Input>
-          </FormGroup>
-        </div>
-        <div className="section mb-3 p-3">
-          <div className="d-flex align-items-center">
-            
-            <Button color="primary" className="mr-5" onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
-            <span>
-              {this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
-              
-              <SuccessBadge show={!!this.state.downloadDirectory.length}  />
-            </span>
-          </div>
-        </div>
-        
+        <FormGroup>
+          <Input type="select" name="select" id="bucket-select" onChange={this.handleBucketChange}>
+            <option value="" disabled selected>{this.state.loading ? 'Loading...' : 'Select an S3 bucket'}</option>
+            {bucketOptions}
+          </Input>
+        </FormGroup>
       </div>
     );
   }
