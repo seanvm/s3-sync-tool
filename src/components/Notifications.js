@@ -20,9 +20,9 @@ class Notifications extends Component {
     
   showAlert = ()=>{
     this.setState({alertVisible:true}, () => {
-      // window.setTimeout(()=>{
-      //   this.setState({alertVisible:false})
-      // },3000)
+      window.setTimeout(()=>{
+        this.setState({alertVisible:false})
+      },3000)
     });
   }
   
