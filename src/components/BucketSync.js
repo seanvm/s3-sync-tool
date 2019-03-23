@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
+import { Button, Progress } from 'reactstrap';
 import { animateScroll } from 'react-scroll';
-// import { PropagateLoader } from 'react-spinners';
 
 const fixPath = window.require('fix-path');
 const spawn = window.require('child_process').spawn;
@@ -11,7 +10,8 @@ class BucketSync extends Component {
     super(props);
     this.state = {
       consoleOutput: [],
-      downloading: false
+      downloading: false,
+      downloadProgress: 0
     };
   }
   
@@ -27,6 +27,7 @@ class BucketSync extends Component {
   
   syncBucket(syncType) {
     this.toggleDownloadState();
+    this.setState({downloadProgress: 0});
     
     // TODO: Killing the app should kill this process
     // TODO: Conditionally use s3 SDK or CLI depending on user config - https://www.npmjs.com/package/electron-config
@@ -46,6 +47,8 @@ class BucketSync extends Component {
     
     sync.stdout.on('data', function(data) {
       _this.updateConsoleOutput(data);
+      _this.updateProgressBar(data);
+      
       console.log('stdout: ' + data.toString());
     });
     
@@ -83,6 +86,26 @@ class BucketSync extends Component {
     this.setState({consoleOutput:newArray}, this.scrollToBottom());
   }
   
+  updateProgressBar(data) {
+    console.log(data.toString().split(/\s+/))
+    let ratio = 0;
+    if(data.toString().length && this.state.downloadProgress !== 100){
+      var dataArray = data.toString().split(/\s+/);
+      var index = dataArray.indexOf('Completed');
+      var currentAmount = dataArray[index + 1];
+      var totalAmount = dataArray[index + 2];
+      
+      totalAmount = totalAmount.split('/')[1].replace('~', '');
+      
+      var totalAmountUnits = dataArray[index + 3];
+      var currentAmountUnits = totalAmount.split('/')[0];
+      
+      ratio = Math.round((+currentAmount / +totalAmount) * 100);
+    }
+   
+    this.setState({downloadProgress: ratio});
+  }
+  
   render() {
     var consoleOutput = this.state.consoleOutput.map(function(item) {
       return (
@@ -92,9 +115,15 @@ class BucketSync extends Component {
     
     return (
       <div>
-        <div className="row bottom-buffer">
-          <div className="col-md-4 text-left">
-            <Button color="primary" onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
+        <div className="section mb-3 p-3">
+          <div className="d-flex align-items-center">
+            {!this.state.downloading ? (
+              <Button color="primary" onClick={() => this.syncBucket('download')} disabled={this.showDownloadButton()}>Download Bucket</Button>
+            ) : (
+              <div className="w-100">
+                <Progress striped color="success" value={this.state.downloadProgress}>{this.state.downloadProgress}%</Progress>
+              </div>
+            )}
           </div>
         </div>
         

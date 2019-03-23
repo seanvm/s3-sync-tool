@@ -41,8 +41,8 @@ class App extends Component {
               <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
               <h1>Buckets</h1>
               <BucketSelector onSelectBucket={this.handleBucket} />
-              <DownloadDirectorySelector onSelectDirectory={this.handleDirectorySelection} />
               <BucketStats selectedBucket={this.state.selectedBucket} />
+              <DownloadDirectorySelector onSelectDirectory={this.handleDirectorySelection} />
               <BucketSync selectedBucket={this.state.selectedBucket} downloadDirectory={this.state.downloadDirectory} handleAlertMessage={this.handleAlertMessage} />
             </div>
           </div>
