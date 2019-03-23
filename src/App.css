@@ -124,21 +124,21 @@ ul li:before
 
 /* Transitions */
 .alert-enter {
-  opacity: 0;
-  transform: scale(0.9);
+  opacity: 0.01;
 }
-.alert-enter-active {
+
+.alert-enter.alert-enter-active {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 1000ms, transform 1000ms;
+  transition: opacity 800ms ease-in;
 }
+
 .alert-exit {
   opacity: 1;
 }
-.alert-exit-active {
-  opacity: 0;
-  transform: scale(0.9);
-  transition: opacity 1000ms, transform 1000ms;
+
+.alert-exit.alert-exit-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
 }
 
 /* Icons */

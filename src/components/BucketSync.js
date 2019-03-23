@@ -86,7 +86,7 @@ class BucketSync extends Component {
   render() {
     var consoleOutput = this.state.consoleOutput.map(function(item) {
       return (
-        <li key={item}>{item}</li>
+        <li key={item + Math.random()}>{item}</li>
       );
     });
     

@@ -24,7 +24,11 @@ class SuccessBadge extends React.Component {
       <div className="d-inline-flex">
         <CSSTransition
           in={this.state.show}
-          timeout={4000}
+          timeout={{
+            appear: 1000,
+            enter: 1000,
+            exit: 1000,
+           }}
           classNames="alert"
           unmountOnExit
         >

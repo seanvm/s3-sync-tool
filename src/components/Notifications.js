@@ -20,9 +20,9 @@ class Notifications extends Component {
     
   showAlert = ()=>{
     this.setState({alertVisible:true}, () => {
-      window.setTimeout(()=>{
-        this.setState({alertVisible:false, alertMessage: ''})
-      },5000)
+      // window.setTimeout(()=>{
+      //   this.setState({alertVisible:false})
+      // },3000)
     });
   }
   
@@ -31,11 +31,15 @@ class Notifications extends Component {
       <div>
         <CSSTransition
           in={this.state.alertVisible}
-          timeout={4000}
+          timeout={{
+            appear: 1000,
+            enter: 1000,
+            exit: 1000,
+           }}
           classNames="alert"
           unmountOnExit
         >
-          <Alert color="success" isOpen={this.state.alertVisible} >
+          <Alert color="success" >
             {this.state.alertMessage}
           </Alert>
         </CSSTransition>
