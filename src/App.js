@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   handleDirectorySelection = (directory) => {
-    this.setState({selectedDirectory: directory});
+    this.setState({downloadDirectory: directory});
   }
   
   render() { 

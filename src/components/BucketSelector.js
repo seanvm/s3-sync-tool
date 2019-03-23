@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input, Button } from 'reactstrap';
 import Bucket from '../models/Bucket.js';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import SuccessBadge from './badges/SuccessBadge.js'
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
@@ -12,6 +11,7 @@ const remote = window.require('electron').remote;
 class BucketSelector extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
       buckets: [],
       downloadDirectory: '',
@@ -81,13 +81,13 @@ class BucketSelector extends Component {
         </div>
         <div className="section mb-3 p-3">
           {/* <h2>Download Directory</h2> */}
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             
             <Button color="primary" className="mr-5" onClick={() => this.selectDirectory()}>Choose Download Directory</Button>{' '}
             <span>
               {this.state.downloadDirectory.length ? `Current Directory: ${this.state.downloadDirectory}` : 'No Directory Selected'}
               
-              {!!this.state.downloadDirectory.length && <span class="ml-1"><FontAwesomeIcon icon={faCheckCircle} size="1x" /></span>}
+              <SuccessBadge show={!!this.state.downloadDirectory.length}  />
             </span>
           </div>
         </div>

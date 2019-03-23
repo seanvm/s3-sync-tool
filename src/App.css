@@ -3,8 +3,6 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
-  word-wrap: break-word;
-  overflow: auto;
 }
 
 h1 {
@@ -75,6 +73,8 @@ ul li:before
 
 .main {
   background: #fcfcfc;
+  word-break: break-word;
+  overflow: auto;
 }
 
 .navigation-item {
@@ -121,6 +121,27 @@ ul li:before
   background-color: #00B4FF;
   border-color: #00B4FF;
 }
+
+/* Transitions */
+.alert-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.alert-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 1000ms, transform 1000ms;
+}
+.alert-exit {
+  opacity: 1;
+}
+.alert-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+/* Icons */
 
 .fa-check-circle {
   color: rgb(34, 153, 34);
