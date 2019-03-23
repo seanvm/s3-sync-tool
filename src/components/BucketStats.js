@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { PropagateLoader } from 'react-spinners';
+import { BarLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
 
@@ -8,7 +8,8 @@ class BucketStats extends Component {
     super(props);
     this.state = {
       selectedBucket: '',
-      bucketStats: ''
+      bucketStats: '',
+      loading: false
     };
   }
 
@@ -23,19 +24,19 @@ class BucketStats extends Component {
   getBucketStats() {
     // A different approach:
     // aws cloudwatch get-metric-statistics --namespace AWS/S3 --start-time 2018-02-14T10:00:00 --end-time 2018-02-15T01:00:00 --period 86400 --statistics Average --region us-west-2 --metric-name BucketSizeBytes --dimensions Name=BucketName,Value=pic2snap.com Name=StorageType,Value=StandardStorage
-    
+    this.setState({loading: true});
     execAsync(`aws s3 ls --summarize --human-readable --recursive s3://${this.props.selectedBucket.name}`).then(results => {
       var parsedBucketStats = this.parseBucketStats(results.stdout);
-      let bucket = {...this.state.buckeet};
+      let bucket = {...this.state.selectedBucket};
       
-      bucket.size = parsedBucketStats;
-      this.setState({selectedBucket: bucket});
+      bucket.totalObjects = parsedBucketStats[2];
+      bucket.totalSize = parsedBucketStats[5] + ' ' + parsedBucketStats[6];
+      this.setState({selectedBucket: bucket, loading: false});
     });
   }
   
   parseBucketStats(bucketStats) {
-    var stringArray = bucketStats.split('\n\n');
-    return stringArray.pop();
+    return bucketStats.split('\n\n').pop().split(/\s+/);
   }
   
   render() {
@@ -44,7 +45,15 @@ class BucketStats extends Component {
         <div className="d-flex-col">
           <h2>Bucket Information</h2>
           <div>
-            {this.state.selectedBucket.size}
+            <BarLoader
+              loading={this.state.loading}
+            />
+            { !this.state.loading &&
+              <ul>
+                <li>Total Objects: {this.state.selectedBucket.totalObjects ? this.state.selectedBucket.totalObjects : 'N/A'}</li>
+                <li>Total Size: {this.state.selectedBucket.totalSize ? this.state.selectedBucket.totalSize : 'N/A'}</li>
+              </ul>
+            }
           </div>
         </div>
       </div>
