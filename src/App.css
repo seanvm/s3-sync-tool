@@ -3,6 +3,17 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  word-wrap: break-word;
+  overflow: auto;
+}
+
+h1 {
+  color: #5a5858;
+}
+
+h2 {
+  font-size:22px;
+  color: #5a5858;
 }
 
 .App {
@@ -53,7 +64,7 @@ ul li:before
 
 .sidebar {
   color: white;
-  background-image: linear-gradient(to bottom right, #098ec1, #52c7ff);
+  background-image: linear-gradient(to bottom right, #00B4FF, #07ACFD);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -74,4 +85,43 @@ ul li:before
 
 .selected {
   opacity: 1;
+}
+
+.buckets {
+  padding: 40px;
+}
+
+.section {
+  border-radius:5px;
+  background-color: #eeeeee
+}
+
+/* Bootstrap overrides */
+.btn-primary {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+.btn.disabled, .btn:disabled {
+  opacity: 0.35;
+}
+
+.btn-primary:hover {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+  box-shadow: 0px 0px 6px 1px rgba(7, 172, 253, .4);
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #00B4FF;
+  border-color: #00B4FF;
+}
+
+.fa-check-circle {
+  color: rgb(34, 153, 34);
 }

@@ -40,10 +40,13 @@ class BucketStats extends Component {
   
   render() {
     return (
-      <div>
-        <div className="row bottom-buffer">
+      <div className="section p-3 mb-3">
+        <div className="row">
           <div className="col-md-4 text-left">
-            Bucket Stats: {this.state.selectedBucket.size}
+            <h2>Bucket Information</h2>
+            <div>
+              {this.state.selectedBucket.size}
+            </div>
           </div>
         </div>
       </div>
