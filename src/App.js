@@ -4,12 +4,18 @@ import BucketScreen from './components/screens/buckets/BucketScreen';
 import SettingScreen from './components/screens/settings/SettingScreen';
 import './App.css';
 
+const fixPath = window.require('fix-path');
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedTab: '',
     };
+  }
+  
+  componentWillMount() {
+    fixPath(); // Seems to block UI render of components.
   }
   
   handleNavigation = (selectedTab) => {
