@@ -114,7 +114,7 @@
   },
   "build": {
     "appId": "ca.vanmulligen.s3tool",
-    "productName": "S3 Buckeet Download Utility",
+    "productName": "S3 Bucket Download Utility",
     "files": [
       "build/**/*",
       "node_modules/**/*"
