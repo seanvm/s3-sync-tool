@@ -31,7 +31,7 @@ class BucketSelector extends Component {
   } 
   
   getBuckets() {
-    fixPath();
+    // fixPath(); // Seems to block UI render of components. Might be unnecessary
     return execAsync("aws s3 ls").then(results => {
       return this.parseBuckets(results.stdout);
     });
