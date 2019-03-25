@@ -14,7 +14,7 @@ class SettingScreen extends Component {
     return (
       <div className="screen" id="settings">
         <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
-        <h1>Settings (Coming Soon!)</h1>
+        <h1>Settings</h1>
         <UserInfo />
       </div>
     );
