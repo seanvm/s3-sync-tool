@@ -10,8 +10,7 @@ class BucketScreen extends Component {
     super(props);
     this.state = {
       selectedBucket: '',
-      downloadDirectory: '',
-      selectedTab: 'buckets'
+      downloadDirectory: ''
     };
   }
 
@@ -25,10 +24,6 @@ class BucketScreen extends Component {
 
   handleDirectorySelection = (directory) => {
     this.setState({downloadDirectory: directory});
-  }
-  
-  handleNavigation = (selectedTab) => {
-    this.setState({selectedTab: selectedTab});
   }
   
   render() { 

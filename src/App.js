@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Sidebar from './components/Sidebar';
 import BucketScreen from './components/screens/buckets/BucketScreen';
+import SettingScreen from './components/screens/settings/SettingScreen';
 import './App.css';
 
 class App extends Component {
@@ -12,7 +13,7 @@ class App extends Component {
   }
   
   handleNavigation = (selectedTab) => {
-    this.setState({selectedTab: selectedTab});
+    this.setState({selectedTab});
   }
   
   // TODO: Use react router for this
@@ -23,7 +24,9 @@ class App extends Component {
       case 'buckets':
         screen = <BucketScreen />;
         break;
-    
+      case 'settings':
+        screen = <SettingScreen />;
+        break;
       default:
         screen = <BucketScreen />;
         break;
