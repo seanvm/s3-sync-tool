@@ -1,7 +1,7 @@
 {
   "name": "s3-bucket-dowload-utility",
   "author": "Sean van Mulligen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "main": "public/electron.js",
   "homepage": "./",
