@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'reactstrap';
-import SuccessBadge from './badges/SuccessBadge.js'
+import SuccessBadge from '../../badges/SuccessBadge.js'
 
 const remote = window.require('electron').remote;
 
@@ -12,8 +12,6 @@ class DownloadDirectorySelector extends Component {
       downloadDirectory: ''
     };
   }
- 
-
   
   selectDirectory() {
     var _this = this;

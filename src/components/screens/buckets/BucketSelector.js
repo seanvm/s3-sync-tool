@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input, Button } from 'reactstrap';
-import Bucket from '../models/Bucket.js';
-import SuccessBadge from './badges/SuccessBadge.js'
+import Bucket from '../../../models/Bucket.js';
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
