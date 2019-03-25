@@ -28,7 +28,7 @@ class BucketScreen extends Component {
   
   render() { 
     return (
-      <div className="buckets">
+      <div className="screen" id="buckets">
         <Notifications alertMessage={this.state.alertMessage} handleAlertMessage={this.handleAlertMessage} />
         <h1>Buckets</h1>
         <BucketSelector onSelectBucket={this.handleBucket} />

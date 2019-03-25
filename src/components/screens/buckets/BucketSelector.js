@@ -4,7 +4,7 @@ import Bucket from '../../../models/Bucket.js';
 // import { PropagateLoader } from 'react-spinners';
 
 const execAsync = window.require('async-child-process').execAsync;
-const fixPath = window.require('fix-path');
+// const fixPath = window.require('fix-path');
 const remote = window.require('electron').remote;
 
 class BucketSelector extends Component {

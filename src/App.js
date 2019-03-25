@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTab: 'buckets',
+      selectedTab: '',
     };
   }
   
@@ -39,7 +39,7 @@ class App extends Component {
     return (
       <div className="container-fluid h-100">
         <div className="row h-100">
-          <div className="sidebar col-2 col-lg-1 col-xs-6 px-1 position-fixed h-100">
+          <div className="sidebar col-2 col-lg-1 col-xs-6 px-0 position-fixed h-100">
             <Sidebar onNavigation={this.handleNavigation} />
           </div>
 
