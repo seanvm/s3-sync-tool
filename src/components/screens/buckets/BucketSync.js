@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Progress } from 'reactstrap';
+import { Button, Progress, Collapse } from 'reactstrap';
 import { animateScroll } from 'react-scroll';
 
 const fixPath = window.require('fix-path');
@@ -8,10 +8,14 @@ const spawn = window.require('child_process').spawn;
 class BucketSync extends Component {
   constructor(props) {
     super(props);
+    
+    // this.toggle = this.toggle.bind(this);
+    
     this.state = {
       consoleOutput: [],
       downloading: false,
-      downloadProgress: 0
+      downloadProgress: 0,
+      showOutput: false
     };
   }
   
@@ -106,6 +110,10 @@ class BucketSync extends Component {
     this.setState({downloadProgress: ratio});
   }
   
+  toggleOutput() {
+    this.setState({ showOutput: !this.state.showOutput });
+  }
+  
   render() {
     var consoleOutput = this.state.consoleOutput.map(function(item) {
       return (
@@ -127,9 +135,15 @@ class BucketSync extends Component {
           </div>
         </div>
         
-        <div id="consoleOutput" className="container-fluid consoleOutput">
-          <ul>{consoleOutput}</ul>
+        <div className="section p-3">
+          <Button color="primary" onClick={() => this.toggleOutput()}>{this.state.showOutput ? 'Hide' : 'Show'} Console Output</Button>
+          <Collapse isOpen={this.state.showOutput}>
+            <div id="consoleOutput" className="mt-2 container-fluid consoleOutput">
+              <ul>{consoleOutput}</ul>
+            </div>
+          </Collapse>
         </div>
+       
       </div>
     );
   }

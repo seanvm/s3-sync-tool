@@ -1,6 +1,6 @@
 {
-  "short_name": "S3 Sync Tool",
-  "name": "S3 Sync Tool",
+  "short_name": "S3 Bucket Download Utility",
+  "name": "S3 Bucket Download Utility",
   "icons": [
     {
       "src": "favicon.ico",

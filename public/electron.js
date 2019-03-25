@@ -19,9 +19,9 @@ app.on('ready', function() {
     // Other options available at:
     // http://electron.atom.io/docs/latest/api/browser-window/#new-browserwindow-options
     mainWindow = new BrowserWindow({
-        name: "S3 Sync Tool",
+        name: "S3 Bucket Download Utility",
         width: 950,
-        height: 450,
+        height: 800,
         toolbar: false,
         minHeight: 300,
         minWidth: 560
@@ -45,6 +45,6 @@ app.on('ready', function() {
     // Cleanup when window is closed
     mainWindow.on('closed', function() {
         mainWindow = null;
-		});
+    });
 
 });

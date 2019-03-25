@@ -8,43 +8,59 @@ export default class NavigationBar extends React.Component {
     super(props);
 
     this.state = {
-      
+      selectedTab: ''
     };
+  }
+  
+  componentDidMount() {
+    this.handleNavigation('buckets');
+  }
+  
+  handleNavigation = (selectedTab) => {
+    this.setState({selectedTab});
+    this.props.onNavigation(selectedTab);
   }
 
   render() {
     return (
-      <div className="sticky-top justify-content-center" id="">
-        <div className="selected row align-items-center navigation-item">
-          <div className="col">
-            <div className="row align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faCloudDownloadAlt} size="2x" />
-            </div>
-            <div className="row align-items-center justify-content-center">
-              Buckets 
-            </div>
-          </div>
-        </div>
-        <div className="row align-items-center navigation-item">
-          <div className="col">
-            <div className="row align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faHistory} size="2x" />
-            </div>
-            <div className="row align-items-center justify-content-center">
-              History
+      <div className="w-100 sticky-top justify-content-center" id="">
+        <a onClick={() => this.handleNavigation('buckets')}>
+          <div className={"w-100 row mx-0 align-items-center navigation-item " + (this.state.selectedTab === 'buckets' && 'selected')}>
+            <div className="col">
+              
+                <div className="row align-items-center justify-content-center">
+                  <FontAwesomeIcon icon={faCloudDownloadAlt} size="2x" />
+                </div>
+                <div className="row align-items-center justify-content-center">
+                  Buckets 
+                </div>
             </div>
           </div>
-        </div>
-        <div className="row align-items-center navigation-item">
+        </a>
+        {/* <div className={"w-100 row mx-0 align-items-center navigation-item " + (this.state.selectedTab === 'history' && 'selected')}>
           <div className="col">
-            <div className="row align-items-center justify-content-center">
-              <FontAwesomeIcon icon={faCogs} size="2x" />
-            </div>
-            <div className="row align-items-center justify-content-center">
-              Settings 
+            <a onClick={() => this.handleNavigation('history')}>
+              <div className="row align-items-center justify-content-center">
+                <FontAwesomeIcon icon={faHistory} size="2x" />
+              </div>
+              <div className="row align-items-center justify-content-center">
+                History
+              </div>
+            </a>
+          </div>
+        </div> */}
+        <a onClick={() => this.handleNavigation('settings')}>
+          <div className={"w-100 row mx-0 align-items-center navigation-item " + (this.state.selectedTab === 'settings' && 'selected')}>
+            <div className="col">
+                <div className="row align-items-center justify-content-center">
+                  <FontAwesomeIcon icon={faCogs} size="2x" />
+                </div>
+                <div className="row align-items-center justify-content-center">
+                  Settings 
+                </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     );
   }
